@@ -156,12 +156,20 @@ error_reporting(E_ALL ^ E_NOTICE | E_WARNING);
 			$sorts_title[$key] = $title_sort;
 			$sorts_release[$key] = @strtotime($item['release_date']);
 			$sorts_rating[$key] = ($item['user_rating'])?$item['user_rating']:$item['rating'];
-			if(is_array($item['genre']) and count($item['genre'])>0) {
-				foreach($item['genre'] as $genre) {
-					$raw_section_genres[$genre]++;
+			if (array_key_exists('genre',$item)) {
+				if(is_array($item['genre']) and count($item['genre'])>0) {
+					foreach($item['genre'] as $genre) {
+						if (array_key_exists($genre,$raw_section_genres)) {
+							$raw_section_genres[$genre]++;
+						} else {
+							$raw_section_genres[$genre] = 1;
+						}
+					}
 				}
 			}
-			$sorts_added_at[$key] = $item['addedAt'];
+			if (array_key_exists('addedAt',$item)) {
+				$sorts_added_at[$key] = $item['addedAt'];
+			}
 		} // end foreach: $items (for sorting)
 
 		asort($sorts_title, SORT_STRING);
