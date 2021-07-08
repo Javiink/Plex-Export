@@ -6,7 +6,7 @@
 
 	A CLI script to export information from your Plex library.
 	Usage:
-		php cli.php [-plex-url="http://your-plex-library:32400"] [-data-dir="plex-data"] [-sections=1,2,3 or "Movies,TV Shows"] [-token=TheTokenToUse]
+		php cli.php [-plex-url="http://your-plex-library:32400"] [-data-dir="plex-data"] [-sections=1,2,3 or "Movies,TV Shows"] [-skip-section-names="My Home Videos,My Personal Videos"] [-token=TheTokenToUse]
 		
 	Dane22, a Plex Community member added support for Plex Tokens
 	
@@ -29,12 +29,14 @@ error_reporting(E_ALL ^ E_NOTICE | E_WARNING);
 		'thumbnail-height' => 250,
 		'sections' => 'all',
 		'sort-skip-words' => 'a,the,der,die,das',
+		'skip-section-names' => '',
 		'token' => ''
 	);
 	$options = hl_parse_arguments($_SERVER['argv'], $defaults);
 	if(substr($options['plex-url'],-1)!='/') $options['plex-url'] .= '/'; // Always have a trailing slash
 	$options['absolute-data-dir'] = dirname(__FILE__).'/'.$options['data-dir']; // Run in current dir (PHP CLI defect)
 	$options['sort-skip-words'] = (array) explode(',', $options['sort-skip-words']); # comma separated list of words to skip for sorting titles
+	$options['skip-section-names'] = (array) explode(',', $options['skip-section-names']); # comma separated list of section names to skip
 	
 	// Create the http header with a X-Plex-Token in it	if specified
 	
@@ -111,6 +113,11 @@ error_reporting(E_ALL ^ E_NOTICE | E_WARNING);
 	$total_items = 0;
 	$section_display_order = array();
 	foreach($sections as $i=>$section) {
+		if(in_array($section['title'], $options['skip-section-names'])) {
+			plex_log('Section '.$section['title'].' was set to be skipped, skipping');
+			continue;
+		}
+		
 		plex_log('Scanning section: '.$section['title']);
 
 		$items = load_items_for_section($section);
