@@ -473,7 +473,7 @@ function load_all_sections() {
 			$sections[$key] = array('key'=>$key, 'type'=>$type, 'title'=>$title);
 			$num_sections++;
 		} else {
-			plex_error('Skipping section of unknown type: '.$type);
+			plex_info('Skipping section of unknown type: '.$type);
 		}
 	}
 
@@ -621,6 +621,26 @@ function plex_log($str) {
 	$str = @date('H:i:s')." $str\n";
 	fwrite(STDOUT, $str);
 } // end func: plex_log
+
+
+
+/**
+ * Output a message to STDOUT
+ **/
+function plex_info($str) {
+	$str = @date('H:i:s')." Info: $str\n";
+	fwrite(STDOUT, $str);
+} // end func: plex_info
+
+
+
+/**
+ * Output a message to STDOUT
+ **/
+function plex_warn($str) {
+	$str = @date('H:i:s')." Warning: $str\n";
+	fwrite(STDOUT, $str);
+} // end func: plex_warn
 
 
 
