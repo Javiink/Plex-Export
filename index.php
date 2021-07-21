@@ -5,7 +5,7 @@ function nvl(&$var, $default = "")
                        : $default;
 }
 function ip_in_range($lower_range_ip_address, $upper_range_ip_address, $needle_ip_address) {
-    # Get the numeric reprisentation of the IP Address with IP2long
+    # Get the numeric representation of the IP Address with IP2long
     $min    = ip2long($lower_range_ip_address);
     $max    = ip2long($upper_range_ip_address);
     $needle = ip2long($needle_ip_address);
