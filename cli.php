@@ -144,7 +144,6 @@ error_reporting(E_ALL ^ E_NOTICE | E_WARNING);
 		$raw_section_genres = array();
 
 		foreach($items as $key=>$item) {
-			
 			$title_sort = strtolower($item['title']);
 			$title_first_space = strpos($title_sort, ' ');
 			if($title_first_space>0) {
@@ -234,6 +233,7 @@ error_reporting(E_ALL ^ E_NOTICE | E_WARNING);
 	}
 
 	$filename = $options['absolute-data-dir'].'/data.js';
+	@unlink($filename);
 	$bytes_written = file_put_contents($filename, $packed_js);
 	if(!$bytes_written) {
 		plex_error('Could not save JSON data to '.$filename.', please make sure directory is writeable');
@@ -269,6 +269,7 @@ function load_data_for_movie($el) {
 	$_el = $el->attributes();
 	$key = intval($_el->ratingKey);
 	if($key<=0) return false;
+	$download_path = $options['plex-url'].substr(strval($el->Media->Part->attributes()->key), 1);
 	$title = strval($_el->title);
 	plex_log('Scanning movie: '.$title);
 
@@ -276,6 +277,7 @@ function load_data_for_movie($el) {
 
 	$item = array(
 		'key' => $key,
+		'download_path' => ($download_path)?$download_path:false,
 		'type' => 'movie',
 		'thumb' => $thumb,
 		'title' => $title,
@@ -354,6 +356,7 @@ function load_data_for_show($el) {
 	$_el = $el->attributes();
 	$key = intval($_el->ratingKey);
 	if($key<=0) return false;
+	//$download_path = $options['plex-url'].substr(strval($el->Media->Part->attributes()->key), 1);
 	$title = strval($_el->title);
 	plex_log('Scanning show: '.$title);
 
@@ -361,6 +364,7 @@ function load_data_for_show($el) {
 
 	$item = array(
 		'key' => $key,
+		'download_path' => false,//$download_path,
 		'type' => 'show',
 		'thumb' => $thumb,
 		'title' => $title,
