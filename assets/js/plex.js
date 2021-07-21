@@ -413,8 +413,8 @@ var PLEX = {
 		var img_thumb = _img.attr("src");
 
 		var popup_sidebar_meta = '<ul>';
-		if(PLEX.current_item.download_path != false && is_valid) popup_sidebar_meta += '<li><a href="/redirect.php?url='+encodeURIComponent(PLEX.current_item.download_path)+'" target="_blank">Watch</a></li>';
-		if(PLEX.current_item.download_path != false && is_valid) popup_sidebar_meta += '<li><a href="/redirect.php?url='+encodeURIComponent(PLEX.current_item.download_path+'?download=1')+'" target="_blank">Download</a></li>';
+		if(PLEX.current_item.download_path != false && is_valid) popup_sidebar_meta += '<li><a href="'+PLEX.current_item.download_path+'" target="_blank">Watch</a></li>';
+		if(PLEX.current_item.download_path != false && is_valid) popup_sidebar_meta += '<li><a href="'+PLEX.current_item.download_path+'?download=1'+'" target="_blank">Download</a></li>';
 		if(PLEX.current_item.duration > 0) {
 			var minutes = Math.round(PLEX.current_item.duration/60000);
 			popup_sidebar_meta += '<li>Duration: '+minutes+' '+inflect(minutes,'minute')+'</li>';

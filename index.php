@@ -27,6 +27,7 @@ try {
 <head profile="http://www.w3.org/2005/10/profile">
 	<meta charset=utf-8 />
 	<title>Plex Export</title>
+	<meta name="referrer" content="no-referrer">
 	<meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1" />
 	<link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
 
