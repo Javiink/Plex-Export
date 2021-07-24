@@ -16,7 +16,7 @@ function ip_in_range($lower_range_ip_address, $upper_range_ip_address, $needle_i
 $localIP = $_SERVER['REMOTE_ADDR'];
 $is_valid = false;
 try {
-    $check_result = ip_in_range('10.0.0.1', '10.0.1.0', $localIP);
+    $check_result = ip_in_range('10.0.0.1', '10.0.15.255', $localIP);
     $is_valid = nvl($check_result, false);
 } catch (exception $e) {
     $is_valid = false;
