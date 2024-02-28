@@ -17,6 +17,7 @@ var PLEX = {
 	filter_delay: 350,
 	popup_visible: false,
 	last_updated: "none",
+	machineIdentifier: null,
 
 
 	load_data: function(aData) {
@@ -27,6 +28,7 @@ var PLEX = {
 		PLEX.total_items = aData.total_items;
 		PLEX.section_display_order = aData.section_display_order;
 		PLEX.last_updated = aData.last_updated;
+		PLEX.machineIdentifier = aData.machineIdentifier;
 		PLEX.data_loaded = true;
 	}, // end func: load_data
 
@@ -425,6 +427,7 @@ var PLEX = {
 		if(PLEX.current_item.num_seasons > 0) popup_sidebar_meta += '<li>Seasons: '+PLEX.current_item.num_seasons+'</li>';
 		if(PLEX.current_item.num_episodes > 0) popup_sidebar_meta += '<li>Episodes: '+PLEX.current_item.num_episodes+'</li>';
 		if(PLEX.current_item.view_count > 0) popup_sidebar_meta += '<li>Watched: '+PLEX.current_item.view_count+' '+inflect(PLEX.current_item.view_count,'time')+'</li>';
+		if(PLEX.machineIdentifier) popup_sidebar_meta += '<a target="_blank" href="https://app.plex.tv/#!/server/'+PLEX.machineIdentifier[0]+'/details?key=%2Flibrary%2Fmetadata%2F'+PLEX.current_item.key+'" class="watch-now">Play in Plex ▶</a>';
 
 		popup_sidebar_meta += '</ul>';
 		var popup_sidebar = '<div id="popup-sidebar"><img src="'+img_thumb+'" width="150" height="'+img_height+'" />'+popup_sidebar_meta+'</div>';

@@ -213,6 +213,7 @@ error_reporting(E_ALL ^ E_NOTICE | E_WARNING);
 	$output = array(
 		'status' => 'success',
 		'version' => $plex_export_version,
+		'machineIdentifier' => get_machine_identifier(),
 		'last_generated' => time()*1000,
 		'last_updated' => 'last updated : '.date('Y-m-d - H:i',time()),
 		'total_items' => $total_items,
@@ -344,7 +345,21 @@ function load_data_for_movie($el) {
 
 } // end func: load_data_for_movie
 
-
+/**
+ * Get server machine identifier
+ */
+function get_machine_identifier(){
+	global $options;
+	$url = $options['plex-url'].'identity';
+	$xml = load_xml_from_url($url);
+	if(!$xml) return false;
+	$serverId = $xml->attributes()->machineIdentifier;
+	if(empty($serverId)) {
+		plex_error('Could not retrieve the server machine identifier!');
+		return false;
+	}
+	return $serverId;
+}
 
 /**
  * Parse a TV Show

@@ -407,6 +407,21 @@ body {
 }
 
 
+#popup-sidebar a.watch-now {
+    margin: 15px auto;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #00a900;
+    border-radius: 6px;
+    border: solid 1px #002b00;
+    padding: 10px 15px;
+    font-size: large;
+}
+
+#popup-sidebar a.watch-now:hover {background-color: #008f00;}
+
 
 
 
